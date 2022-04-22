@@ -80,13 +80,23 @@ public final class RPoint2D {
     }
 
     /**
-     * Creates a new point (double representation)
+     * Creates a new point given an x- and y coordinate as a primitive <code>double</code>.
+     *
+     * @param x the x coordinate.
+     * @param y the y coordinate.
+     */
+    public RPoint2D(double x, double y) {
+        this(new Rational(x), new Rational(y));
+    }
+
+    /**
+     * Creates a new point (with given rational representation)
      * @param xNum x numerator
      * @param xDen y denominator
      * @param yNum x numerator
      * @param yDen y denominator
      */
-    public RPoint2D(long xNum, long xDen, long yNum,long yDen) {
+    public RPoint2D(long xNum, long xDen, long yNum, long yDen) {
         this(new Rational(xNum, xDen), new Rational(yNum, yDen));
     }
 

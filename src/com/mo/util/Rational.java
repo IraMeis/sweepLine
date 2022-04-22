@@ -119,17 +119,17 @@ public final class Rational extends Number implements Comparable<Rational> {
     /**
      * the public static value positive infinity.
      */
-    public static final Rational POSITIVE_INFINITY = new Rational(Double.POSITIVE_INFINITY);
+    public static final Rational POSITIVE_INFINITY = getSpecialRational(Double.POSITIVE_INFINITY);
 
     /**
      * the public static value negative infinity.
      */
-    public static final Rational NEGATIVE_INFINITY = new Rational(Double.NEGATIVE_INFINITY);
+    public static final Rational NEGATIVE_INFINITY = getSpecialRational(Double.NEGATIVE_INFINITY);
 
     /**
      * the public static value NaN (not a number).
      */
-    public static final Rational NaN = new Rational(Double.NaN);
+    public static final Rational NaN = getSpecialRational(Double.NaN);
 
     /**
      * the numerator of this rational.
@@ -147,12 +147,22 @@ public final class Rational extends Number implements Comparable<Rational> {
     private int hash;
 
     /**
-     * Creates a new com.mo.util.Rational from a given number <code>n</code>.
+     * Creates a new com.mo.util.Rational from a given long number <code>n</code>.
      *
      * @param n the number.
      */
     public Rational(long n) {
         this(n, 1);
+    }
+
+    /**
+     * Creates a new com.mo.util.Rational from a given double number <code>n</code>.
+     *
+     * @param n the number.
+     */
+    public Rational(double n) {
+        long[] adapted = NumericUtil.decimalToNumDen(n);
+        init(new BigInteger(String.valueOf(adapted[0])), new BigInteger(String.valueOf(adapted[1])));
     }
 
     /**
@@ -164,7 +174,7 @@ public final class Rational extends Number implements Comparable<Rational> {
      * @throws ArithmeticException when <code>den</code> equals zero.
      */
     public Rational(long num, long den) throws ArithmeticException {
-        this(new BigInteger(String.valueOf(num)), new BigInteger(String.valueOf(den)));
+        this (new BigInteger(String.valueOf(num)), new BigInteger(String.valueOf(den)));
     }
 
     /**
@@ -184,8 +194,12 @@ public final class Rational extends Number implements Comparable<Rational> {
      *
      * @param wrapper the Double wrapper from which to get the hash code.
      */
-    private Rational(Double wrapper) {
-        hash = wrapper.hashCode();
+    private static Rational getSpecialRational(Double wrapper) {
+        Rational res = new Rational(0);
+        res.denominator = BigInteger.ZERO;
+        res.numerator = BigInteger.ZERO;
+        res.hash = wrapper.hashCode();
+        return res;
     }
 
     /**

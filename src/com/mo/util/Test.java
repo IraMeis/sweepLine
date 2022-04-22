@@ -21,25 +21,18 @@ public class Test {
 
     // horizontal, vertical, more than 2 segments through 1 point
     static Set<RLineSegment2D> segments2 = Set.of(
-            new RLineSegment2D(-5,-5,5,5),
+            new RLineSegment2D(-5.5,-5.5,5,5),
             new RLineSegment2D(-5,5,5,-5),
             new RLineSegment2D(-1,0,1,0),
             new RLineSegment2D(0,0,0,6),
             new RLineSegment2D(4,1,4,-5),
-            new RLineSegment2D(-1,0,6,0)
+            new RLineSegment2D(-1,0,6.7,0)
     );
 
     static void test(Set<RLineSegment2D> segments) {
-        SweepLine SL = new SweepLine();
-        EventQueue queue = new EventQueue(segments, SL);
-
-        while(!queue.isEmpty()) {
-            Set<Event> events = queue.poll();
-            SL.handle(events);
-        }
-
+        SweepLine SL = SweepLine.perform(segments);
         System.out.println(SL.hasIntersections());
-        System.out.println(SL.getIntersections());
+        System.out.println(SL.getIntersectionPoints());
     }
 
     public static void testRun (){

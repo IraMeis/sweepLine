@@ -200,6 +200,10 @@ public class SweepLine {
         return segments;
     }
 
+    public Set<RPoint2D> getIntersectionPoints(){
+        return getIntersections().keySet();
+    }
+
     /**
      * Handles a set of events.
      *
@@ -385,5 +389,15 @@ public class SweepLine {
             b.append("  ").append(e).append("\n");
         }
         return b.append("}").toString();
+    }
+
+    public static SweepLine perform(Set<RLineSegment2D> segments) {
+        SweepLine SL = new SweepLine();
+        EventQueue queue = new EventQueue(segments, SL);
+        while(!queue.isEmpty()) {
+            Set<Event> events = queue.poll();
+            SL.handle(events);
+        }
+        return SL;
     }
 }

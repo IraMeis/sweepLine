@@ -136,7 +136,7 @@ public final class RLineSegment2D {
     }
 
     /**
-     * Creates a new line segment from 4 long values
+     * Creates a new line segment from 4 long values (long)
      *
      * @param xA x of first point
      * @param yA y of first point
@@ -148,20 +148,15 @@ public final class RLineSegment2D {
     }
 
     /**
-     * Creates a new line segment from 8 long values (double representation)
+     * Creates a new line segment from 4 long values (double)
      *
-     * @param xAN x numerator of first point
-     * @param xAD x denominator of first point
-     * @param yAN y numerator of first point
-     * @param yAD y denominator of first point
-     * @param xBN x numerator of second point
-     * @param xBD x denominator of second point
-     * @param yBN y numerator of second point
-     * @param yBD y denominator of second point
+     * @param xA x of first point
+     * @param yA y of first point
+     * @param xB x of second point
+     * @param yB y of second point
      */
-    public RLineSegment2D(long xAN, long xAD, long yAN, long yAD,
-                          long xBN, long xBD, long yBN, long yBD) {
-        this(new RPoint2D(xAN,xAD,yAN,yAD), new RPoint2D(xBN, xBD, yBN, yBD));
+    public RLineSegment2D(double xA, double yA, double xB, double yB) {
+        this(new RPoint2D(xA, yA), new RPoint2D(xB, yB));
     }
 
     /**
