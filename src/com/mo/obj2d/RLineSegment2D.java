@@ -159,6 +159,10 @@ public final class RLineSegment2D {
         this(new RPoint2D(xA, yA), new RPoint2D(xB, yB));
     }
 
+    public RLineSegment2D(double[] arr) {
+        this(new RPoint2D(arr[0], arr[1]), new RPoint2D (arr[2], arr[3]));
+    }
+
     /**
      * Returns the point that divides this line segment in two equally sized pieces.
      *

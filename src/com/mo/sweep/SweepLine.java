@@ -391,13 +391,23 @@ public class SweepLine {
         return b.append("}").toString();
     }
 
-    public static SweepLine perform(Set<RLineSegment2D> segments) {
-        SweepLine SL = new SweepLine();
-        EventQueue queue = new EventQueue(segments, SL);
+    public SweepLine perform(Set<RLineSegment2D> segments) {
+        EventQueue queue = new EventQueue(segments, this);
         while(!queue.isEmpty()) {
             Set<Event> events = queue.poll();
-            SL.handle(events);
+            this.handle(events);
         }
-        return SL;
+        return this;
     }
+
+    public SweepLine perform(double[] ... segmentArrays) {
+        Set<RLineSegment2D> segments = new HashSet<>();
+        for (double[] arr : segmentArrays){
+            if(arr.length != 4)
+                throw new IllegalArgumentException("4 numbers required, got " +arr.length);
+            segments.add(new RLineSegment2D(arr));
+        }
+        return perform(segments);
+    }
+
 }
